@@ -1,0 +1,26 @@
+[
+  {
+    "product": "Sakarias Armchair",
+    "rating": 5.0,
+    "price": 392,
+    "category": ["chair", "bed"]
+  },
+  {
+    "product": "Baltsar Chair",
+    "rating": 5.0,
+    "price": 392,
+    "category": ["chair", "bed"]
+  },
+  {
+    "product": "Anjay Chair",
+    "rating": 5.0,
+    "price": 392,
+    "category": ["chair", "bed"]
+  },
+  {
+    "product": "Nyantuy Chair",
+    "rating": 5.0,
+    "price": 392,
+    "category": ["chair", "bed"]
+  }
+]

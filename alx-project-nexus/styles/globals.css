@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+:root {
+  --primaryColor: #fff;
+  --secondryColor: #e58411;
+}
+h1 {
+  font-size: 3rem;
+  color: white;
+}
+h2 {
+  font-size: 2rem;
+}
+p,
+li {
+  list-style-type: none;
+}
+button {
+  cursor: pointer;
+}
