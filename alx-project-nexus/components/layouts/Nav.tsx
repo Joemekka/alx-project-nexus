@@ -28,7 +28,7 @@ const Nav = () => {
         <Link className="text-white" href="/">
           Home
         </Link>
-        <Link className="text-white" href="/shop">
+        <Link className="text-white" href="/products">
           Shop
         </Link>
         <Link className="text-white" href="/about">
