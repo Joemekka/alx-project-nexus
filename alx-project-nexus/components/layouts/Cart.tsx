@@ -34,10 +34,10 @@ const Cart = ({ onClose, isOpen }: CardProps) => {
         {state.items.map((item, i) => (
           <div className="bg-white  flex gap-5 items-center" key={i}>
             <Image
-              src="/assets/mediamodifier_image.png"
+              src={item.image ? item.image : ''}
               width={120}
               height={120}
-              alt="Iphone"
+              alt={item.alt}
             />
             <div className="flex w-[60%] justify-between items-center">
               <div className="px-2.5">

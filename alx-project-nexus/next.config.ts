@@ -5,7 +5,12 @@ const nextConfig: NextConfig = {
 
   reactStrictMode: true,
   images: {
-    domains: ['i.imgur.com', 't4.ftcdn.net', 'media.istockphoto.com'],
+    domains: [
+      'i.imgur.com',
+      't4.ftcdn.net',
+      'media.istockphoto.com',
+      'www.pngkey.com',
+    ],
   }, // allow images from Imgur
   webpack(config) {
     // Add SVGR support for importing SVGs as React components

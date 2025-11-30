@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST="{\"pages/index.tsx -> @/components/layouts/Cart\":{\"id\":\"pages/index.tsx -> @/components/layouts/Cart\",\"files\":[]}}"
