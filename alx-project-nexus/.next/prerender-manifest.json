@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/products/1":{},"/products/2":{},"/products/3":{},"/products/4":{},"/products/5":{},"/products/6":{}},"dynamicRoutes":{"/products/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/products/[id]","routeRegex":"^\\/products\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"ebe450bd37ee9a19f954b16f9239c43e","previewModeSigningKey":"cc0daf9a96c59f1601f77bea0522da7350fbba191c43f9029b4c827b884f883c","previewModeEncryptionKey":"38bb0e4734710bfb6145748c4c5ba4e23debd06b31c261dc447405cb965a01f3"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "aefd8003a425df91adc93a0971583c04",
+    "previewModeSigningKey": "b222403e7f0bb736c82b2016daea61163940710ff7a7116c3045cb807f561edd",
+    "previewModeEncryptionKey": "2eabb3116876335158dbd7c11f6b426c86df9eca9d9d34e16b945d3020aae555"
+  }
+}

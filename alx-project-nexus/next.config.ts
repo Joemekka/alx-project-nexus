@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
       'media.istockphoto.com',
       'www.pngkey.com',
     ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.pngkey.com',
+      },
+    ],
   }, // allow images from Imgur
   webpack(config) {
     // Add SVGR support for importing SVGs as React components
