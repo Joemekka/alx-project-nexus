@@ -1,34 +1,45 @@
 import React from 'react';
 import Image from 'next/image';
 import { ProductProp } from '@/interfaces';
-
+import { routeToDest } from '@/utils/pageRoute';
 import { PlusIcon, Star } from 'lucide-react';
 import { capitalize } from '@/utils/cappitalize';
 import { useCart } from '@/context/CartContext';
 
-const AddToCartCard = ({
+const ProductCard = ({
   id,
   product,
   price,
   category,
   rating,
   alt,
+  image,
 }: ProductProp) => {
-  const { dispatch } = useCart();
+  const { state, dispatch } = useCart();
 
   const handleToCart = () => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: { id, product, price, category, rating, alt },
-    });
+    const existing = state.items.find((i) => i.id === id);
+
+    if (existing) {
+      // Already in cart → increase quantity
+      dispatch({ type: 'INCREASE_QTY', payload: id });
+    } else {
+      // Not in cart → add new item
+      dispatch({
+        type: 'ADD_ITEM',
+        payload: { id, product, price, category, rating, alt, quantity: 1 },
+      });
+    }
   };
 
   return (
-    <div className="w-1/4 h-[350px]">
-      <Image src="/assets/chair1.png" width={120} height={120} alt={alt} />
-      <div
-        className={`flex flex-col gap-3.5 rounded-md h-[204px] p-5 bg-white`}
-      >
+    <div className="w-full h-full " onClick={routeToDest(`/products/${id}`)}>
+      <div className="relative h-[50%]">
+        <div className="relative w-[70%] h-full m-auto">
+          <Image src={image ? image : ''} fill alt={alt} />
+        </div>
+      </div>
+      <div className={`flex flex-col gap-3.5 rounded-md p-5 bg-white`}>
         <div className="h-[100px]">
           <p className="font-normal">{category}</p>
           <h4 className="font-bold h-[55px]">{capitalize(product)}</h4>
@@ -56,4 +67,4 @@ const AddToCartCard = ({
   );
 };
 
-export default AddToCartCard;
+export default ProductCard;

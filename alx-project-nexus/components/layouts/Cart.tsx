@@ -4,13 +4,13 @@ import { useCart } from '@/context/CartContext';
 import DeleteIcon from '@/public/icons/delete.svg';
 import { CardProps } from '@/interfaces';
 import { formatCurrency } from '@/utils/formatCurrency';
+import { accumulateQty } from '@/utils/accumulateQty';
+import Link from 'next/link';
+import Quantity from '../common/Quantity';
 
 const Cart = ({ onClose, isOpen }: CardProps) => {
   const { state, dispatch } = useCart();
-  const total = state.items.reduce(
-    (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
-    0
-  );
+
   return (
     <div
       className={`
@@ -21,13 +21,14 @@ const Cart = ({ onClose, isOpen }: CardProps) => {
       `}
     >
       <div className="flex  justify-end mr-4">
-        <button className="" onClick={onClose}>
+        <button className="" onClick={() => onClose?.()}>
           X
         </button>
       </div>
       <div className="flex justify-between items-center px-2">
         <h4>Total Item In Cart {state.items.length}</h4>
-        <h4>{formatCurrency(total)}</h4>
+        <h4>{accumulateQty(state.items)}</h4>{' '}
+        {/* <-- pass CartState, not CartItem[] */}
       </div>
       <div className="h-full flex flex-col gap-2.5">
         {state.items.map((item, i) => (
@@ -41,31 +42,11 @@ const Cart = ({ onClose, isOpen }: CardProps) => {
             <div className="flex w-[60%] justify-between items-center">
               <div className="px-2.5">
                 <h4>{item.product}</h4>
-                <h4>${item.price}</h4>
+                <h4 className="font-bold">${item.price}</h4>
               </div>
               <div className="flex w-[40%] h-full flex-col justify-between  ">
-                <div className="flex  h-full mb-2">
-                  <div className="flex shadow item-center w-full h-[30px] overflow-hidden rounded-md">
-                    <button
-                      className="bg-black  text-white flex-1"
-                      onClick={() =>
-                        dispatch({ type: 'DECREASE_QTY', payload: item.id })
-                      }
-                    >
-                      -
-                    </button>
-                    <span className="flex-1 font-bold text-center pt-1">
-                      {item.quantity}
-                    </span>
-                    <button
-                      onClick={() =>
-                        dispatch({ type: 'INCREASE_QTY', payload: item.id })
-                      }
-                      className="flex-1 bg-black  text-white"
-                    >
-                      +
-                    </button>
-                  </div>
+                <div className=" w-full">
+                  <Quantity key={item.id} item={item} />
                 </div>
                 <div className="h-full">
                   <button
@@ -85,10 +66,14 @@ const Cart = ({ onClose, isOpen }: CardProps) => {
           </div>
         ))}
       </div>
-      <button className="bg-(--secondryColor) py-2.5">
+      <Link
+        href="/checkout"
+        className="bg-(--secondryColor) text-center  py-2.5"
+      >
         Proceed To Checkout
-      </button>
+      </Link>
     </div>
   );
 };
+
 export default Cart;
