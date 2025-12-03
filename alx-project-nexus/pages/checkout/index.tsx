@@ -3,6 +3,7 @@ import Nav from '@/components/layouts/Nav';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { ShippingProps } from '@/interfaces';
+import { formatCurrency } from '@/utils/formatCurrency';
 
 const Checkout = () => {
   const { state } = useCart();
@@ -487,7 +488,9 @@ const Checkout = () => {
                       <div className="flex mx-1.5">
                         <h4>{item.product}</h4>
                       </div>
-                      <span className="font-bold">${item.price}</span>
+                      <span className="font-bold">
+                        {formatCurrency(item.price as number)}
+                      </span>
                     </div>
                   </div>
                 </div>

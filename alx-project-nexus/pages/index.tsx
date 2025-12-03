@@ -310,7 +310,7 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
                 className="flex flex-col h-full w-full justify-center gap-2 items-center cursor-pointer"
                 onClick={routeToDest(`/products/${product.id}`)}
               >
-                <div className="relative flex justify-center items-center p-5 shadow rounded-md bg-[#F7F7F7] h-full w-full">
+                <div className="relative flex justify-center items-center p-5 shadow rounded-md bg-[#F7F7F7] h-[200px] w-full">
                   <Image
                     src={product.image ? product.image : ''}
                     fill
