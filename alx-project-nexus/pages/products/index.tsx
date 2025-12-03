@@ -124,7 +124,7 @@ const Products: React.FC<ProductsItem> = ({ data }) => {
             <button onClick={handleAccodion}>
               <Sort />
               {filterAccodion && (
-                <div className="fixed top-30 left-75 md:hidden ">
+                <div className="fixed top-30 left-75 md:hidden z-20 ">
                   <button
                     onClick={() => handleTag('All')}
                     className={`flex justify-center items-center bg-[#c6c7c9ae] backdrop-blur-sm text-center rounded-sm shadow h-[30px] w-20 ${

@@ -31,7 +31,7 @@ const Filter: React.FC<FilterProps> = ({ data, onFilter }) => {
 
       {/* Dropdown */}
       {openDropdown && (
-        <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md border z-50">
+        <div className="absolute right-0 max-md:left-60 max-md:right-0 max-md:fixed mt-2 w-40 bg-white shadow-lg rounded-md border z-50">
           <button
             onClick={sortLowToHigh}
             className="block w-full text-left px-4 py-2 hover:bg-gray-100"
