@@ -9,13 +9,14 @@ export interface LogosProp {
 export interface ProductProp {
   id: string;
   product: string;
-  price: number;
+  price: number | string;
   rating: number;
   category: string[];
   Description?: string;
   image?: string;
   alt: string;
   quantity?: number;
+  tag?: string;
 }
 export interface ProductAllProp {
   products: ProductProp[];

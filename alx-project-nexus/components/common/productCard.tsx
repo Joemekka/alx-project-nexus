@@ -35,8 +35,14 @@ const ProductCard = ({
   return (
     <div className="w-full h-full ">
       <div className="relative h-[50%]">
-        <div className="relative w-[70%] h-full m-auto">
-          <Image src={image ? image : ''} fill alt={alt} />
+        <div className="flex justify-center items-center m-auto ">
+          <Image
+            src={image ? image : ''}
+            width={180}
+            height={180}
+            alt={alt}
+            className="object-contain h-[170px] object-center"
+          />
         </div>
       </div>
       <div className={`flex flex-col gap-3.5 rounded-md p-5 bg-white`}>
@@ -54,7 +60,7 @@ const ProductCard = ({
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <p className="font-bold">${price}</p>
+          <p className="font-bold">{price}</p>
           <button
             onClick={handleToCart}
             className="bg-black rounded-full text-white"

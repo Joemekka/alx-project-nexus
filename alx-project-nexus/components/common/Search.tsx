@@ -22,7 +22,7 @@ const Search = ({ products }: ProductAllProp) => {
         />
       </form>
       {query && (
-        <ul className="backdrop-filter mt-1.5 bg-[#4a4b4dae]  backdrop-blur-sm border border-white/45 rounded-md flex flex-col items-start p-5">
+        <ul className="absolute top-30 z-10   backdrop-filter mt-1.5 bg-[#4a4b4dae]  backdrop-blur-sm border border-white/45 rounded-md flex flex-col items-start p-5">
           {filterData.length > 0 ? (
             filterData.map((product) => (
               <li
