@@ -41,7 +41,9 @@ const Cart = ({ onClose, isOpen }: CardProps) => {
             <div className="flex w-[60%] justify-between items-center">
               <div className="px-2.5">
                 <h4>{item.product}</h4>
-                <h4 className="font-bold">{item.price}</h4>
+                <h4 className="font-bold">
+                  {formatCurrency(item.price as number)}
+                </h4>
               </div>
               <div className="flex w-[40%] h-full flex-col justify-between  ">
                 <div className=" w-full">

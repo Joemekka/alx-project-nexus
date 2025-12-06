@@ -9,6 +9,7 @@ import Sort from '@/components/common/Sort';
 import { routeToDest } from '@/utils/pageRoute';
 import { useState } from 'react';
 import { formatCurrency } from '@/utils/formatCurrency';
+import { Suspense } from 'react';
 
 export const getStaticProps: GetStaticProps<ProductsItem> = async () => {
   try {
@@ -191,6 +192,7 @@ const Products: React.FC<ProductsItem> = ({ data }) => {
             />
           </div>
         </div>
+
         <div className="grid grid-cols-3 gap-5  grid-rows-2 mt-9 ">
           {filteredProducts.map((product) => (
             <div

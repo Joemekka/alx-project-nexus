@@ -285,7 +285,7 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
                   image={card.image}
                   id={card.id}
                   product={card.product}
-                  price={formatCurrency(Number(card.price))}
+                  price={card.price as number}
                   rating={card.rating}
                   category={[card.category?.[0] ?? '']}
                   alt={card.product}

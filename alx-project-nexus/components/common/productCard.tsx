@@ -5,6 +5,7 @@ import { routeToDest } from '@/utils/pageRoute';
 import { PlusIcon, Star } from 'lucide-react';
 import { capitalize } from '@/utils/cappitalize';
 import { useCart } from '@/context/CartContext';
+import { formatCurrency } from '@/utils/formatCurrency';
 
 const ProductCard = ({
   id,
@@ -69,7 +70,7 @@ const ProductCard = ({
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <p className="font-bold">{price}</p>
+          <p className="font-bold">{formatCurrency(price as number)}</p>
           <button
             onClick={handleToCart}
             className="bg-black rounded-full text-white"

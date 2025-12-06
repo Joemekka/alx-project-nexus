@@ -5,7 +5,7 @@ import Quantity from '@/components/common/Quantity';
 import { capitalize } from '@/utils/cappitalize';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
-import BuyNow from '@/components/common/BuyNow';
+import { formatCurrency } from '@/utils/formatCurrency';
 
 interface Params {
   params: { id: string };
@@ -91,7 +91,9 @@ export default function ProductPage({ product }: ProductPageProps) {
             10/10・6 REVIEWS
           </span>
           <p className="text-black">{product?.Description}</p>
-          <h4 className="font-bold text-black text-3xl">${product?.price}</h4>
+          <h4 className="font-bold text-black text-3xl">
+            {formatCurrency(product?.price as number)}
+          </h4>
 
           <div className="flex justify-between gap-5 w-[220px]">
             <div className="w-[150px]">
