@@ -39,36 +39,59 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
+  const [currIndex, setCurrIndex] = useState(0);
 
-  // Duplicate items for infinite loop
   const items = [...data, ...data];
+  const slideWidth = 0.25; // 25% per slide, change based on your layout
+
+  // Autot Slide
 
   useEffect(() => {
-    const container = containerRef.current;
-    let scrollAmount = 0;
+    if (paused) return;
 
-    const tick = () => {
-      if (!container || paused) return;
-
-      container.scrollLeft += 1;
-      scrollAmount += 1;
-
-      // Reset once we've scrolled through one full set
-      if (scrollAmount >= container.scrollWidth / 2) {
-        container.scrollLeft = 0;
-        scrollAmount = 0;
-      }
-    };
-
-    const interval = setInterval(tick, 10); // speed of auto-scroll
+    const interval = setInterval(() => {
+      slideLeft();
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, [paused]);
+  }, [paused, currIndex]);
 
-  // Manual navigation
   const slideLeft = () => {
-    const container = containerRef.current;
-    container?.scrollBy({ left: -300, behavior: 'smooth' });
+    if (!containerRef.current) return;
+    const newIndex = currIndex === 0 ? items.length - 1 : currIndex - 1;
+    setCurrIndex(newIndex);
+
+    containerRef.current.scrollTo({
+      left: containerRef.current.offsetWidth * (newIndex * slideWidth),
+      behavior: 'smooth',
+    });
+  };
+
+  // Swipper
+  let startX = 0;
+  let isDragging = false;
+
+  const handleSwipperStart = (e: React.TouchEvent) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  };
+
+  const handleSwipperMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+
+    const diff = startX - e.touches[0].clientX;
+
+    if (diff > 50) {
+      slideRight();
+      isDragging = false;
+    } else if (diff < -50) {
+      slideLeft();
+      isDragging = false;
+    }
+  };
+
+  const handleSwiperEnd = () => {
+    isDragging = false;
   };
 
   const slideRight = () => {
@@ -81,7 +104,7 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
       {/* Header */}
       <Header>
         <Nav />
-        <div className="max-md:h-full flex flex-col gap-3.5 h-[350px] w-[800px] text-white capitalize text-base/snug  text-center m-auto justify-center  items-center">
+        <div className="max-md:h-full flex flex-col gap-3.5 h-[380px] w-[800px] text-white capitalize text-base/snug  text-center m-auto justify-center  items-center">
           <h1 className="font-bold max-md:wrap-normal">
             Make your interior more minimalistic & modern
           </h1>
@@ -90,7 +113,7 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
             ease and speed
           </p>
           <div>
-            <form className="flex items-center backdrop-filter bg-[#4a4b4dae]  backdrop-blur-sm border border-white/45 rounded-full py-[0.2rem] overflow-hidden">
+            <form className="flex items-center backdrop-filter bg-[#4a4b4dae]  backdrop-blur-sm border-white/45 rounded-full py-[0.2rem] overflow-hidden">
               <input
                 type="text"
                 value={query}
@@ -104,11 +127,11 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
               />
             </form>
             {query && (
-              <ul className="fixed top-84 left-130  backdrop-filter mt-1.5 bg-[#4a4b4dae]  backdrop-blur-sm border border-white/45 rounded-md flex flex-col items-start p-5">
+              <ul className="absolute top-90 left-130 max-md:top-50 max-md:left-25 max-md:right-25 max-md:z-50  backdrop-filter mt-1.5 bg-[#4a4b4dae]  backdrop-blur-sm border border-white/45 rounded-md flex flex-col items-start p-5">
                 {filterData.length > 0 ? (
                   filterData.map((product) => (
                     <li
-                      className="hover:text-(--secondryColor) cursor-pointer"
+                      className="hover:text-(--secondryColor) cursor-pointer text-left"
                       key={product.id}
                       onClick={routeToDest(`/products/${product.id}`)}
                     >
@@ -217,12 +240,11 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
           </Link>
         </div>
       </div>
-      {/* Slider */}
       <div className="h-fit bg-[#F7F7F7] flex flex-col items-center justify-center py-10">
-        <h2>Trending Products</h2>
-        <p>Our best selling products of all time</p>
+        <h2 className="text-2xl font-bold mb-2">Trending Products</h2>
+        <p className="mb-6">Our best selling products of all time</p>
         <div
-          className="relative w-[90%] h-full flex flex-col justify-center "
+          className="relative w-[90%] h-full flex flex-col justify-center"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -233,7 +255,6 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
           >
             &#8592;
           </button>
-
           <button
             onClick={slideRight}
             className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow z-10 hover:scale-110 transition"
@@ -244,25 +265,27 @@ const Home: React.FC<ProductsItem> = ({ data }) => {
           {/* Slider container */}
           <div
             ref={containerRef}
-            className="flex gap-5 h-[80%] overflow-hidden"
+            className="flex gap-5 h-[80%] overflow-hidden scroll-smooth"
             style={{ scrollSnapType: 'x mandatory' }}
+            onTouchStart={handleSwipperStart}
+            onTouchMove={handleSwipperMove}
+            onTouchEnd={handleSwiperEnd}
           >
             {items.map((card, i) => (
               <div
                 key={i}
-                className="flex-[0_0_25%] max-md:flex-[0_0_50%]"
+                className="flex-[0_0_25%] max-md:flex-[0_0_50%] scroll-snap-start"
                 style={{
-                  scrollSnapAlign: 'start',
                   opacity: 0,
                   animation: 'fadeIn 0.8s ease forwards',
-                  animationDelay: `${(i % data.length) * 0.15}s`,
+                  animationDelay: `${i * 0.15}s`,
                 }}
               >
                 <ProductCard
                   image={card.image}
                   id={card.id}
                   product={card.product}
-                  price={formatCurrency(card.price as number)}
+                  price={formatCurrency(Number(card.price))}
                   rating={card.rating}
                   category={[card.category?.[0] ?? '']}
                   alt={card.product}

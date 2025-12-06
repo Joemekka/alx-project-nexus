@@ -27,7 +27,16 @@ const ProductCard = ({
       // Not in cart → add new item
       dispatch({
         type: 'ADD_ITEM',
-        payload: { id, product, price, category, rating, alt, quantity: 1 },
+        payload: {
+          id,
+          product,
+          price,
+          category,
+          rating,
+          alt,
+          quantity: 1,
+          image,
+        },
       });
     }
   };
@@ -37,7 +46,7 @@ const ProductCard = ({
       <div className="relative h-[50%]">
         <div className="flex justify-center items-center m-auto ">
           <Image
-            src={image ? image : ''}
+            src={image ?? ''}
             width={180}
             height={180}
             alt={alt}
